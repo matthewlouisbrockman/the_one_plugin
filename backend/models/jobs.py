@@ -5,14 +5,16 @@ class TOPJob(db.Model):
   __tablename__ = 'top_jobs'
 
   job_id = db.Column(db.Integer, primary_key=True)
-  job_name = db.Column(db.String(100), nullable=False)
-  job_description = db.Column(db.String(1000), nullable=False)
+  job_name = db.Column(db.String(100), nullable=True)
+  job_description = db.Column(db.String(1000), nullable=True)
   created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
   updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  user_id = db.Column(db.String(100), nullable=True)  
 
-  def __init__(self, job_name, job_description):
+  def __init__(self, job_name, job_description, user_id):
     self.job_name = job_name
     self.job_description = job_description
+    self.user_id = user_id
 
   def __repr__(self):
     return f"<Action {self.job_name}>"
@@ -23,7 +25,8 @@ class TOPJob(db.Model):
       "job_name": self.job_name,
       "job_description": self.job_description,
       "created_at": self.created_at,
-      "updated_at": self.updated_at
+      "updated_at": self.updated_at,
+      "user_id": self.user_id
     }
   
   def save(self):

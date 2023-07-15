@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, g
 from wrappers.auth_required import auth_required
-
+from models.jobs import TOPJob
 bp = Blueprint("management", __name__, url_prefix="/management")
 
 @bp.route("/jobs", methods=["GET"])

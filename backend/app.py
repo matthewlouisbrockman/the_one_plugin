@@ -36,5 +36,10 @@ app.register_blueprint(management_bp)
 def hello_world():  
     return render_template('home.html')
 
+with app.app_context():
+    print('Creating tables')
+    db.create_all()  # This will create tables if they don't exist.
+    print('Tables created')
+
 if __name__ == '__main__':
     app.run(debug=True)
