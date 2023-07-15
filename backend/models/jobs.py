@@ -38,3 +38,7 @@ class TOPJob(db.Model):
     self.job_description = job_description
     self.updated_at = datetime.utcnow()
     db.session.commit()
+
+  @classmethod
+  def find_by_user_id(cls, user_id):
+    return cls.query.filter_by(user_id=user_id).order_by(cls.created_at.desc()).all()

@@ -7,7 +7,13 @@ bp = Blueprint("management", __name__, url_prefix="/management")
 @auth_required
 def get_jobs():
     print('user info: ', g.user_id)
+
+    jobs = TOPJob.find_by_user_id(g.user_id)
+
+    print('jobs: ', jobs)
+
     return jsonify({'jobs': [{
         'id': 1,
         'name': 'job1',
     }]})
+
