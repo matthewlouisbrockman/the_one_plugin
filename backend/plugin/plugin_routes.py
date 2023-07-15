@@ -26,6 +26,7 @@ def get_ai_plugin():
             text = f.read()
             text = text.replace("PLUGIN_HOSTNAME", "http://localhost:5000")
     else:
+        print('rendering prod manifest')
         with open('./plugin/manifest.json', 'r') as f:
             text = f.read()
             text = text.replace("PLUGIN_HOSTNAME", f"https://{host}")
