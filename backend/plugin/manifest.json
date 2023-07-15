@@ -5,7 +5,14 @@
   "description_for_human": "Coordinate complex and repetitive tasks",
   "description_for_model": "Keep track of activity status for completing tasks",
   "auth": {
-    "type": "none"
+    "type": "oauth",
+    "client_url": "AUTHO_CLIENT_URL",
+    "scope": "openid profile email",
+    "authorization_url": "AUTH0_AUTHORIZATION_URL",
+    "authorization_content_type": "application/json",
+    "verification_tokens": {
+      "openai": "OPENAI_VERIFICATION_TOKEN"
+    }
   },
   "api": {
     "type": "openapi",
