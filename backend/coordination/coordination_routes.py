@@ -1,4 +1,4 @@
-from flask import Blueprint, g
+from flask import Blueprint, g, request
 from wrappers.auth_required import auth_required
 from models.jobs import TOPJob
 from utils.json_helper import jsonify_payload
@@ -16,6 +16,8 @@ def get_jobs_for_plugin():
 
     jobs = TOPJob.find_by_user_id(g.user_id)
 
+    jobs = [job.serialize() for job in jobs]
+
     jobs = [
         {
             'job_id': job['job_id'],
@@ -25,3 +27,19 @@ def get_jobs_for_plugin():
 
     return jsonify_payload({'jobs': jobs})
 
+@bp.route("/execute_job", methods=["POST"])
+@auth_required
+def execute_job():
+    payload = request.get_json()
+
+    print('payload: ', payload)
+
+    job_id = payload.get('job_id')
+
+    print('job_id: ', job_id)
+
+    job = TOPJob.find_by_id(job_id)
+
+    description = job['job_description']
+
+    return jsonify_payload({'instructions': description})
