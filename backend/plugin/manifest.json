@@ -1,9 +1,9 @@
 {
   "schema_version": "v1",
-  "name_for_human": "TOP Coordinator Local",
+  "name_for_human": "TOP Coordinator",
   "name_for_model": "action_tracker",
-  "description_for_human": "Coordinate complex and repetitive tasks",
-  "description_for_model": "Keep track of activity status for completing tasks",
+  "description_for_human": "Coordinate complex and repetitive tasks by tying together your apps.",
+  "description_for_model": "Keep track of activity status for completing tasks. Begin, continue, and complete tasks!",
   "auth": {
     "type": "oauth",
     "client_url": "AUTHO_CLIENT_URL",
