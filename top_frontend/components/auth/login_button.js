@@ -32,7 +32,7 @@ const LoginButton = () => {
         )}
         {user && (
           <Link href="/api/auth/logout">
-            <button className="text-black rounded px-3 py-1">Logout</button>
+            <button className="text-white rounded px-3 py-1">Logout</button>
           </Link>
         )}
       </div>
