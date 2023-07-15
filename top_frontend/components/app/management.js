@@ -30,9 +30,9 @@ export const Management = () => {
     });
     const data = await res.json();
     console.log("res: ", data);
-    if (data?.jobs) {
-      setJobs(data.jobs);
-      setCurrentJob(data.jobs[0]?.job_name);
+    if (data?.job) {
+      setJobs([...jobs, data.job]);
+      setCurrentJob(data.job.job_id);
     }
   };
 
@@ -63,7 +63,7 @@ const JobSelectionDropdown = ({ jobs, currentJob, setCurrentJob }) => {
     <div className="flex flex-row">
       {!!jobs?.length && (
         <select
-          value={jobs.find((job) => job.job_id === currentJob).job_id}
+          value={jobs.find((job) => job.job_id === currentJob)?.job_id}
           onChange={(e) => setCurrentJob(e.target.value)}
         >
           {jobs.map((job) => (

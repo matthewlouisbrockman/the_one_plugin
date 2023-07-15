@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, g, request
 from wrappers.auth_required import auth_required
 from models.jobs import TOPJob
+from utils.json_helper import jsonify_payload
+
 bp = Blueprint("management", __name__, url_prefix="/management")
 
 @bp.route("/jobs", methods=["GET"])
@@ -10,9 +12,9 @@ def get_jobs():
 
     jobs = TOPJob.find_by_user_id(g.user_id)
 
-    print('jobs: ', jobs)
+    print('jobs: ', [job.serialize() for job in jobs])
 
-    return jsonify({'jobs': [job.serialize() for job in jobs]})
+    return jsonify_payload({'jobs': [job.serialize() for job in jobs]})
 
 @bp.route("/jobs", methods=["POST"])
 @auth_required
@@ -27,4 +29,4 @@ def create_job():
     job = TOPJob(job_name, job_description, g.user_id)
     job.save()
 
-    return jsonify({'job': job.serialize()})
+    return jsonify_payload({'job': job.serialize()})
