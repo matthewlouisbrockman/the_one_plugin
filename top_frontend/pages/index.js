@@ -1,7 +1,7 @@
 const Index = () => (
   <div
     className="
-    flex flex-col w-screen h-screen bg-black text-white
+    flex flex-col w-full h-full bg-black text-white
   "
   >
     <div
