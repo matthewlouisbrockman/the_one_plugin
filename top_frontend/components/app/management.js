@@ -6,7 +6,7 @@ export const Management = () => {
   const [jobTasks, setJobTasks] = useState([]);
 
   const getJobs = async () => {
-    const res = await fetch("/api/jobs");
+    const res = await fetch("/api/theoneplugin/jobs");
     const data = await res.json();
     if (data?.jobs) {
       setJobs(data.jobs);
