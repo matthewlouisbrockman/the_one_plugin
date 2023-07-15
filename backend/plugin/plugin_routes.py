@@ -37,7 +37,7 @@ def get_ai_plugin():
     return Response(text, mimetype="text/json")
 
 @bp.route("/.well-known/ai-plugin2.json", methods=["GET"])
-def get_ai_plugin():
+def get_ai_plugin2():
     host = request.headers['Host']
     with open('./plugin/manifest.json', 'r') as f:
         text = f.read()
