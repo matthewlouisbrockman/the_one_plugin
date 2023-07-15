@@ -32,14 +32,12 @@ def get_jobs_for_plugin():
 def execute_job():
     payload = request.get_json()
 
-    print('payload: ', payload)
-
     job_id = payload.get('job_id')
-
-    print('job_id: ', job_id)
 
     job = TOPJob.find_by_id(job_id)
 
+    job = job.serialize()
+
     description = job['job_description']
 
-    return jsonify_payload({'instructions': description})
+    return jsonify_payload({'goal': description})

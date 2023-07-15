@@ -19,6 +19,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/GetJobsResponse"
 
+  /coordination/execute_job:
+    post:
+      summary: Used to begin doing a job. This will return the instructions for how to accomplish the job and where to store data. Just need to pass in the job_id.
+      operationId: executeTOPJob
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobExecutionRequest"
+
 components:
   schemas:
     GetJobsResponse:
@@ -36,4 +46,9 @@ components:
         job_name:
           type: string
         job_description:
+          type: string
+    JobExecutionRequest:
+      type: object
+      properties:
+        job_id:
           type: string
