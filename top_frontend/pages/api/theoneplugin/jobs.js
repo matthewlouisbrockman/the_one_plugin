@@ -6,15 +6,14 @@ export default withApiAuthRequired(async function myApiRoute(req, res) {
   try {
     const { accessToken } = await getAccessToken(req, res);
     if (req.method === "POST") {
-      const { job_name, job_description } = req.body;
-
+      const body = req.body;
       const result = await fetch(BASE_URL + "/management/jobs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify({ job_name, job_description }),
+        body,
       });
 
       const data = await result.json();

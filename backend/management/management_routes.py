@@ -19,6 +19,8 @@ def get_jobs():
 def create_job():
     payload = request.get_json()
 
+    print('payload: ', payload)
+
     job_name = payload.get('job_name')
     job_description = payload.get('job_description')
 

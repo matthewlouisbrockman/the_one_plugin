@@ -16,6 +16,26 @@ export const Management = () => {
     }
   };
 
+  const handleCreateJob = async ({ jobName, jobDescription }) => {
+    if (!jobName || !jobDescription) {
+      setCreatingJob(false);
+      return;
+    }
+    const res = await fetch("/api/theoneplugin/jobs", {
+      method: "POST",
+      body: JSON.stringify({
+        job_name: jobName,
+        job_description: jobDescription,
+      }),
+    });
+    const data = await res.json();
+    console.log("res: ", data);
+    if (data?.jobs) {
+      setJobs(data.jobs);
+      setCurrentJob(data.jobs[0]?.job_name);
+    }
+  };
+
   useEffect(() => {
     getJobs();
   }, []);
@@ -28,7 +48,7 @@ export const Management = () => {
       >
         Create Job
       </button>
-      {creatingJob && <CreateJobForm onClose={() => setCreatingJob(false)} />}
+      {creatingJob && <CreateJobForm onClose={handleCreateJob} />}
       <JobSelectionDropdown
         jobs={jobs}
         currentJob={currentJob}
@@ -88,7 +108,10 @@ const CreateJobForm = ({ onClose }) => {
         <button className="rounded px-3 py-1" onClick={onClose}>
           Cancel
         </button>
-        <button className="rounded px-3 py-1" onClick={onClose}>
+        <button
+          className="rounded px-3 py-1"
+          onClick={() => onClose({ jobName, jobDescription })}
+        >
           Create
         </button>
       </div>
