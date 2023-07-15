@@ -8,6 +8,7 @@ export const Management = () => {
   const getJobs = async () => {
     const res = await fetch("/api/theoneplugin/jobs");
     const data = await res.json();
+    console.log("res: ", data);
     if (data?.jobs) {
       setJobs(data.jobs);
       setCurrentJob(data.jobs[0].id);
@@ -37,11 +38,15 @@ const JobSelectionDropdown = ({ jobs, currentJob, setCurrentJob }) => {
     <div className="flex flex-row">
       {!!jobs?.length && (
         <select
-          value={currentJob}
+          value={jobs.find((job) => job.id === currentJob).id}
           onChange={(e) => setCurrentJob(e.target.value)}
         >
           {jobs.map((job) => (
-            <option key={job.id} value={job.id}>
+            <option
+              key={job.id}
+              value={job.id}
+              selected={job.id === currentJob}
+            >
               {job.name}
             </option>
           ))}
