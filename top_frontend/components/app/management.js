@@ -11,7 +11,7 @@ export const Management = () => {
     console.log("res: ", data);
     if (data?.jobs) {
       setJobs(data.jobs);
-      setCurrentJob(data.jobs[0].id);
+      setCurrentJob(data.jobs[0]?.job_name);
     }
   };
 
@@ -38,16 +38,16 @@ const JobSelectionDropdown = ({ jobs, currentJob, setCurrentJob }) => {
     <div className="flex flex-row">
       {!!jobs?.length && (
         <select
-          value={jobs.find((job) => job.id === currentJob).id}
+          value={jobs.find((job) => job.job_id === currentJob).job_id}
           onChange={(e) => setCurrentJob(e.target.value)}
         >
           {jobs.map((job) => (
             <option
-              key={job.id}
-              value={job.id}
-              selected={job.id === currentJob}
+              key={job.job_id}
+              value={job.job_id}
+              selected={job.job_id === currentJob}
             >
-              {job.name}
+              {job.job_name}
             </option>
           ))}
         </select>
