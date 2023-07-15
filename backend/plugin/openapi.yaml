@@ -6,7 +6,7 @@ info:
   version: "1.0"
 openapi: 3.0.1
 paths:
-  /management/jobs:
+  /coordination/view_jobs:
     get:
       summary: List the TOP Jobs that are avaialble.
       operationId: listAvailableTOPJobs
