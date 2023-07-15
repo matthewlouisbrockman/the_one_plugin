@@ -25,8 +25,17 @@ def create_job():
 
     job_name = payload.get('job_name')
     job_description = payload.get('job_description')
+    job_id = payload.get('job_id')
 
-    job = TOPJob(job_name, job_description, g.user_id)
-    job.save()
+    if not job_id:
+        print('creating job')
+        job = TOPJob(job_name, job_description, g.user_id)
+        job.save()
+
+    else:
+        print('updating job ', job_id)
+        job = TOPJob.find_by_id(job_id)
+        job.update(job_name, job_description)
+
 
     return jsonify_payload({'job': job.serialize()})

@@ -4,7 +4,10 @@ export const JobSelectionDropdown = ({ jobs, currentJob, setCurrentJob }) => {
       {!!jobs?.length && (
         <select
           value={jobs.find((job) => job.job_id === currentJob)?.job_id}
-          onChange={(e) => setCurrentJob(e.target.value)}
+          onChange={(e) => {
+            console.log("target value: ", e.target.value);
+            setCurrentJob(parseInt(e.target.value));
+          }}
           defaultValue={jobs[0]?.job_id}
         >
           {jobs.map((job) => (

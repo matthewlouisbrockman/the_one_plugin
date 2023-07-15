@@ -42,3 +42,8 @@ class TOPJob(db.Model):
   @classmethod
   def find_by_user_id(cls, user_id):
     return cls.query.filter_by(user_id=user_id).order_by(cls.created_at.desc()).all()
+
+  @classmethod
+  def find_by_id(cls, job_id):
+    return cls.query.filter_by(job_id=job_id).first()
+  
