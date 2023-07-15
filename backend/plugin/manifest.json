@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "name_for_human": "The One PLugin Local",
+  "name_for_human": "TOP Coordinator Local",
   "name_for_model": "action_tracker",
   "description_for_human": "Coordinate complex and repetitive tasks",
   "description_for_model": "Keep track of activity status for completing tasks",

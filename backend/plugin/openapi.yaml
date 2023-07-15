@@ -2,43 +2,14 @@ servers:
   - url: PLUGIN_HOSTNAME
 info:
   description: Scheduling and keeping track of task status. Each time you do an action, register it.
-  title: The One Plugin
+  title: TOP Coordinator
   version: "1.0"
 openapi: 3.0.1
 paths:
-  /help:
-    get:
-      summary: Explain how to use the plugin plus any debugging info
-      operationId: help_with_coordination
-      responses:
-        default:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HelpCoordinationResponse"
-  /register_namespace_functions:
-    post:
-      summary: List all the functions in the namespace.
-      operationId: register_other_plugins
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RegisterNamespaceFunctionsRequest"
-      responses:
-        default:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RegisterOtherPluginsResponse"
   /initialize:
     get:
-      summary: Initialize the One Plugin for coordinating tasks
-      operationId: initialize
+      summary: TOP Coordinator will initialize itself and begin providing tasks to start the coordination.
+      operationId: initialize_coordination_plugin
       responses:
         default:
         "200":
@@ -50,32 +21,9 @@ paths:
 
 components:
   schemas:
-    HelpCoordinationResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message to help with coordination
-    RegisterNamespaceFunctionsRequest:
-      type: object
-      properties:
-        namespace:
-          type: string
-          description: The namespace to register functions for
-        functions:
-          type: array
-          items:
-            type: string
-          description: The functions to register
-    RegisterOtherPluginsResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message to help with coordination
     InitializeResponse:
       type: object
       properties:
         message:
           type: string
-          description: A message to help with coordination
+          description: A message to help with coordination.
