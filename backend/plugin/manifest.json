@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "The One PLugin Local",
+  "name_for_model": "action_tracker",
+  "description_for_human": "Coordinate complex and repetitive tasks",
+  "description_for_model": "Keep track of activity status for completing tasks",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "PLUGIN_HOSTNAME/openapi.yaml"
+  },
+  "logo_url": "PLUGIN_HOSTNAME/logo.jpeg",
+  "contact_email": "matt@theoneplugin.net",
+  "legal_info_url": "https://theoneplugin.net/tos"
+}

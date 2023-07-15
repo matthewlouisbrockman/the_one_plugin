@@ -1,0 +1,19 @@
+servers:
+  - url: PLUGIN_HOSTNAME
+info:
+  description: Scheduling and keeping track of task status
+  title: The One Plugin
+  version: "1.0"
+openapi: 3.0.1
+paths:
+  /help
+    get:
+      description: Explain how to use the plugin
+      operationId: help
+      responses:
+        "200":
+          description: Help text
+          content:
+            text/plain:
+              schema:
+                type: string
