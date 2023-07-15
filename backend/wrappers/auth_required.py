@@ -10,6 +10,7 @@ from config import IS_LOCALHOST
 AUTH0_DOMAIN = os.getenv("AUTH0_DOMAIN", "theoneplugin.us.auth0.com")
 ALGORITHMS = os.getenv("ALGORITHMS", ["RS256"])
 API_AUDIENCE = os.getenv("API_AUDIENCE", "https://api.theoneplugin.net")
+DEFAULT_USERNAME = os.getenv("DEFAULT_USERNAME", "test_account")
 
 # AuthError Exception
 class AuthError(Exception):
@@ -115,7 +116,7 @@ def auth_required(f):
             g.user_id = payload["sub"]
         except AuthError as e:
             if IS_LOCALHOST:
-                g.user_id = 'test_account'
+                g.user_id = DEFAULT_USERNAME
             else:
                 return {
                     "success": False,
