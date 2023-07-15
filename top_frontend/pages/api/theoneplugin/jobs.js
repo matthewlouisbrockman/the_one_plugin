@@ -7,7 +7,7 @@ export default withApiAuthRequired(async function myApiRoute(req, res) {
     const { accessToken } = await getAccessToken(req, res);
 
     // Use the access token to call your API
-    const result = await fetch(BASE_URL + "/jobs", {
+    const result = await fetch(BASE_URL + "/management/jobs", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
