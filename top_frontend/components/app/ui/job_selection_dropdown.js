@@ -3,12 +3,11 @@ export const JobSelectionDropdown = ({ jobs, currentJob, setCurrentJob }) => {
     <div className="flex flex-row">
       {!!jobs?.length && (
         <select
-          value={jobs.find((job) => job.job_id === currentJob)?.job_id}
+          value={currentJob} // Use currentJob directly as the value
           onChange={(e) => {
             console.log("target value: ", e.target.value);
             setCurrentJob(parseInt(e.target.value));
           }}
-          defaultValue={jobs[0]?.job_id}
         >
           {jobs.map((job) => (
             <option key={job.job_id} value={job.job_id}>
