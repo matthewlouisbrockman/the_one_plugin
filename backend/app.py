@@ -3,8 +3,12 @@ from flask_cors import CORS
 
 import config
 
+from plugin.plugin import bp as plugin_bp
+
 app = Flask(__name__)
 CORS(app)
+
+app.register_blueprint(plugin_bp)
 
 @app.route('/')
 def hello_world():  
