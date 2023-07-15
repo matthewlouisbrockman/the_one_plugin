@@ -31,10 +31,23 @@ def get_ai_plugin():
             text = f.read()
             text = text.replace("PLUGIN_HOSTNAME", f"https://{host}")
             text = text.replace("AUTHO_CLIENT_URL", AUTHO_CLIENT_URL)
-            text = text.replace("AUTHO_AUTHORIZATION_URL", AUTHO_AUTHORIZATION_URL)
+            text = text.replace("AUTH0_AUTHORIZATION_URL", AUTHO_AUTHORIZATION_URL)
             text = text.replace("OPENAI_VERIFICATION_TOKEN", OPENAI_VERIFICATION_TOKEN)
 
     return Response(text, mimetype="text/json")
+
+@bp.route("/.well-known/ai-plugin2.json", methods=["GET"])
+def get_ai_plugin():
+    host = request.headers['Host']
+    with open('./plugin/manifest.json', 'r') as f:
+        text = f.read()
+        text = text.replace("PLUGIN_HOSTNAME", f"https://{host}")
+        text = text.replace("AUTHO_CLIENT_URL", AUTHO_CLIENT_URL)
+        text = text.replace("AUTH0_AUTHORIZATION_URL", AUTHO_AUTHORIZATION_URL)
+        text = text.replace("OPENAI_VERIFICATION_TOKEN", OPENAI_VERIFICATION_TOKEN)
+
+    return Response(text, mimetype="text/json")
+
 
 @bp.route("/openapi.yaml", methods=["GET"])
 def get_openapi():
