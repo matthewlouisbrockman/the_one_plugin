@@ -38,4 +38,4 @@ def get_openapi():
 @bp.route("/logo.jpeg", methods=["GET"])
 def get_logo():
     print('getting logo')
-    return send_from_directory('./static', 'logo.jpeg')
+    return send_from_directory('./static', 'logo.png')
