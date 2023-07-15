@@ -18,15 +18,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HelpCoordinationResponse"
-  /register_other_plugins:
+  /register_namespace_functions:
     post:
-      summary: Register other plugins
+      summary: List all the functions in the namespace.
       operationId: register_other_plugins
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RegisterOtherPluginsRequest"
+              $ref: "#/components/schemas/RegisterNamespaceFunctionsRequest"
       responses:
         default:
         "200":
@@ -44,17 +44,20 @@ components:
         message:
           type: string
           description: A message to help with coordination
-    RegisterOtherPluginsRequest:
+    RegisterNamespaceFunctionsRequest:
       type: object
       properties:
-        plugins:
+        namespace:
+          type: string
+          description: The namespace to register functions for
+        functions:
           type: array
           items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: The name of the plugin
-              description:
-                type: string
-                description: A description of the plugin
+            type: string
+          description: The functions to register
+    RegisterOtherPluginsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message to help with coordination
