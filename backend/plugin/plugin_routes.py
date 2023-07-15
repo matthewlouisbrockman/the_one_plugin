@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, g, send_from_directory, Response
+from flask import Blueprint, request, send_from_directory, Response
 from config import IS_LOCALHOST
 import yaml
 
