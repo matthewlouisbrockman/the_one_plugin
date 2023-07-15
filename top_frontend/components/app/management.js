@@ -1,9 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Management = () => {
   const [jobs, setJobs] = useState([]);
   const [currentJob, setCurrentJob] = useState(null);
   const [jobTasks, setJobTasks] = useState([]);
+
+  const getJobs = async () => {
+    const res = await fetch("/api/jobs");
+    const data = await res.json();
+    if (data?.jobs) {
+      setJobs(data.jobs);
+      setCurrentJob(data.jobs[0].id);
+    }
+  };
+
+  useEffect(() => {
+    getJobs();
+  }, []);
 
   return (
     <div className="flex flex-col w-full h-full bg-black text-white">
