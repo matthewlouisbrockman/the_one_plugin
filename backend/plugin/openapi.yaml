@@ -35,6 +35,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RegisterOtherPluginsResponse"
+  /initialize:
+    get:
+      summary: Initialize the One Plugin for coordinating tasks
+      operationId: initialize
+      responses:
+        default:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InitializeResponse"
 
 components:
   schemas:
@@ -56,6 +68,12 @@ components:
             type: string
           description: The functions to register
     RegisterOtherPluginsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message to help with coordination
+    InitializeResponse:
       type: object
       properties:
         message:

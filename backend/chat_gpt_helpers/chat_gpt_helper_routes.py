@@ -2,10 +2,10 @@ from flask import Blueprint, jsonify, request
 
 bp = Blueprint("chat_gpt_helper", __name__)
 
-@bp.route("/initialize_coordinator", methods=["GET"])
+@bp.route("/initialize", methods=["GET"])
 def initialize_coordinator():
   return jsonify({
-    "message": 'Hello, please register your namespace functions with /register_namespace_functions'
+    "message": 'Hello, please register your namespace functions with /register_namespace_functions. No questions go until complete.'
   })
 
 @bp.route("/register_namespace_functions", methods=["POST"])
