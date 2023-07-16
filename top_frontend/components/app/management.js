@@ -10,7 +10,6 @@ export const Management = () => {
   const getJobs = async () => {
     const res = await fetch("/api/theoneplugin/jobs");
     const data = await res.json();
-    console.log("res: ", data);
     if (data?.jobs) {
       setJobs(data.jobs);
       setCurrentJobId(data.jobs[0]?.job_id);
