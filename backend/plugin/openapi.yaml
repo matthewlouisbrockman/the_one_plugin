@@ -31,7 +31,7 @@ paths:
 
   /coordination/log_results:
     post:
-      summary: While executing the job, once a section is complete send the results back as a JSON object (result).
+      summary: While executing the job, once a section is complete send the results back as a JSON object (results).
       operationId: logJobResults
       requestBody:
         content:
