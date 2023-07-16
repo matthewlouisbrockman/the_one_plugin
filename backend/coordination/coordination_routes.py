@@ -82,11 +82,16 @@ def download_results(result_id):
   results = result.get('result_data')
 
   print('results: ', results)
-
-  df = pd.DataFrame(results)
-
   filename = f"results_{result_id}.xlsx"
 
-  df.to_excel(filename, index=False)
+  try:
+    df = pd.DataFrame(results)
+    df.to_excel(filename, index=False)
+  except:
+      # save it as a txt
+      file = open(filename, 'w')
+      file.write(str(jsonify_payload(results)))
+      file.close()
+
 
   return send_file(filename, as_attachment=True)
