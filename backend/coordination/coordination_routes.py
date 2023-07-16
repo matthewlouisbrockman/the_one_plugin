@@ -2,7 +2,7 @@ from flask import Blueprint, g, request
 from wrappers.auth_required import auth_required
 from models.jobs import TOPJob
 from utils.json_helper import jsonify_payload
-
+import pandas as pd
 from models.job_results import TOPJobResult
 
 bp = Blueprint("coordination", __name__, url_prefix="/coordination")
