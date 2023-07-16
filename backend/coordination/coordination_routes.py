@@ -42,7 +42,7 @@ def execute_job():
 
     description = job['job_description']
 
-    return jsonify_payload({'goal': description + "\n\nExecute the goal. No questions just go. If you encounter errors, try to troubleshoot, if you can't fix it just keep going through the rest of the tasks. Save the results after each section."})
+    return jsonify_payload({'goal': description + "\n\nExecute the goal. No questions just go. If you encounter errors, try to troubleshoot, if you can't fix it just keep going through the rest of the tasks. Log the results after each section as an object {} back to  /coordination/log_results."})
 
 @bp.route("/log_results", methods=["POST"])
 @auth_required
@@ -51,6 +51,8 @@ def log_results():
 
     job_id = payload.get('job_id')
     results = payload.get('results')
+    if not results:
+        results = payload.get("result")
 
     new_result = TOPJobResult(
         job_id,

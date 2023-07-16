@@ -31,13 +31,13 @@ paths:
 
   /coordination/log_results:
     post:
-      summary: While executing the job, once a section is complete send the results back in JSON format.
+      summary: While executing the job, once a section is complete send the results back as a JSON object (result).
       operationId: logJobResults
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/JobCompletionLog"
+              $ref: "#/components/schemas/JobCompletionResults"
 
 components:
   schemas:
@@ -62,11 +62,14 @@ components:
       properties:
         job_id:
           type: string
-    JobCompletionLog:
+    JobCompletionResults:
       type: object
       properties:
         job_id:
           type: string
         results:
           type: object
-          description: "a dictionary of all the results"
+          properties:
+            result:
+              type: object
+              description: The result of this part of the job. This can be anything, but it must be a JSON object.
