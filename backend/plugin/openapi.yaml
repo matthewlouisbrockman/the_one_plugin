@@ -29,7 +29,7 @@ paths:
             schema:
               $ref: "#/components/schemas/JobExecutionRequest"
 
-  /coordinate/coordination/log_results:
+  /coordination/log_results:
     post:
       summary: While executing the job, once a section is complete send the results back in JSON format.
       operationId: logJobResults
