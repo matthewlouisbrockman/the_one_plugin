@@ -29,6 +29,16 @@ paths:
             schema:
               $ref: "#/components/schemas/JobExecutionRequest"
 
+  /coordinate/coordination/log_results:
+    post:
+      summary: Log the results for the job so the user can download them.
+      operationID: logJobResults
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/JobCompletionLog"
+
 components:
   schemas:
     GetJobsResponse:
@@ -52,3 +62,11 @@ components:
       properties:
         job_id:
           type: string
+    JobCompletionLog:
+      type: object
+        properties:
+          job_id:
+            type: string
+          results:
+            type: object
+            description: "a dictionary of all the results"
