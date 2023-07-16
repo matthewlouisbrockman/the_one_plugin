@@ -67,6 +67,8 @@ def log_results():
 
     host = request.headers['Host']
     url = f"{host}/coordination/download_results/{job_id}"
+    if not host.startswith('http'):
+        url = f"https://{url}"
 
     return jsonify_payload({'hello': 'world', "url": url})
 
