@@ -89,6 +89,7 @@ def download_results(result_id):
     df.to_excel(filename, index=False)
   except:
       # save it as a txt
+      filename = f"results_{result_id}.txt"
       file = open(filename, 'w')
       file.write(str(jsonify_payload(results)))
       file.close()
