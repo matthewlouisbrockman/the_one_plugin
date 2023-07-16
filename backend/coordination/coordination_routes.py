@@ -73,8 +73,17 @@ def log_results():
 @bp.route("/download_results/<result_id>", methods=["GET"])
 def download_results(result_id):
 
-  df = pd.DataFrame({"Data": [1,2,3,4]})
-  filename = f"output-{result_id}.xlsx"
+  result = TOPJobResult.find_by_id(result_id)
+
+  result = result.serialize()
+
+  results = result.get('result_data')
+
+  print('results: ', results)
+
+  df = pd.DataFrame(results)
+
+  filename = f"results_{result_id}.xlsx"
 
   df.to_excel(filename, index=False)
 
