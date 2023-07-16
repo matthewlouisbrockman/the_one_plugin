@@ -42,7 +42,7 @@ def execute_job():
 
     description = job['job_description']
 
-    return jsonify_payload({'goal': description + "\n\nExecute the goal. No questions just go."})
+    return jsonify_payload({'goal': description + "\n\nExecute the goal. No questions just go. If you encounter errors, try to troubleshoot, if you can't fix it just keep going through the rest of the tasks. Save the results after each section."})
 
 @bp.route("/log_results", methods=["POST"])
 @auth_required
