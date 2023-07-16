@@ -5,7 +5,6 @@ export const JobSelectionDropdown = ({ jobs, currentJob, setCurrentJob }) => {
         <select
           value={currentJob} // Use currentJob directly as the value
           onChange={(e) => {
-            console.log("target value: ", e.target.value);
             setCurrentJob(parseInt(e.target.value));
           }}
         >
