@@ -1,10 +1,12 @@
 from models.db import db
 from datetime import datetime
+import sqlalchemy.dialects.postgresql as postgresql
+
 
 class TOPJobResult(db.Model):
   __tablename__ = 'top_job_results'
 
-  result_id = db.Column(db.Integer, primary_key=True)
+  result_id = db.Column(postgresql.UUID(as_uuid=True), primary_key=True, server_default=db.text("(uuid_generate_v4())"))
   parent_job_id = db.Column(db.Integer, nullable=False)
   result_data = db.Column(db.JSON, nullable=False, default={})
   created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
