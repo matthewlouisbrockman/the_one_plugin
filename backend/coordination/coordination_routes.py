@@ -1,4 +1,4 @@
-from flask import Blueprint, g, request
+from flask import Blueprint, g, request, send_file
 from wrappers.auth_required import auth_required
 from models.jobs import TOPJob
 from utils.json_helper import jsonify_payload
@@ -63,8 +63,17 @@ def log_results():
 
     job_id = str(res.get('result_id'))
 
-    return jsonify_payload({'hello': 'world', "url": job_id})
+    host = request.headers['Host']
+    url = f"{host}/coordination/download_results/{job_id}"
+
+    return jsonify_payload({'hello': 'world', "url": url})
 
 @bp.route("/download_results/<result_id>", methods=["GET"])
 def download_results(result_id):
-  pass
+
+  df = pd.DataFrame({"Data": [1,2,3,4]})
+  filename = f"output-{result_id}.xlsx"
+
+  df.to_excel(filename, index=False)
+
+  return send_file(filename, as_attachment=True)
