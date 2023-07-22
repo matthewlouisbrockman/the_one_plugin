@@ -1,10 +1,10 @@
 from models.db import db
 from datetime import datetime
 
-class TOPSubscription(db.model):
+class TOPSubscription(db.Model):
     __tablename__ = 'top_subscriptions'
 
-    subscription_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(100), nullable=True)
     subscription_provider = db.Column(db.String(100), nullable=True) # right now just stripe
     customer_id = db.Column(db.String(100), nullable=True) # stripe customer id
