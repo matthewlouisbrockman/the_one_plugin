@@ -6,6 +6,7 @@ from coordination.coordination_routes import bp as coordination_bp
 from chat_gpt_helpers.chat_gpt_helper_routes import bp as chat_gpt_helper_bp
 from testing.testing_routes import bp as testing_bp
 from management.management_routes import bp as management_bp
+from payments.payments_routes import bp as payments_bp
 
 from models.db import db
 
@@ -31,6 +32,7 @@ app.register_blueprint(coordination_bp)
 app.register_blueprint(chat_gpt_helper_bp)
 app.register_blueprint(testing_bp)
 app.register_blueprint(management_bp)
+app.register_blueprint(payments_bp)
 
 @app.route('/')
 def hello_world():  
