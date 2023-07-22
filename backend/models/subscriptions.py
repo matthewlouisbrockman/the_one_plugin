@@ -52,6 +52,8 @@ class TOPSubscription(db.Model):
         # can do partial updates here
         for key, value in kwargs.items():
             setattr(self, key, value)
+        
+        db.session.add(self)
 
         db.session.commit()
     
