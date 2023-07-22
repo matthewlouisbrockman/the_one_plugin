@@ -21,8 +21,8 @@ endpoint_secret = os.environ.get("STRIPE_ENDPOINT_SECRET") # this is for the web
 
 bp = Blueprint("payments", __name__, url_prefix="/payments")
 
-@bp.route("/webhook", methods=["POST"])
-def webhook():
+@bp.route("/stripe_webhook", methods=["POST"])
+def stripe_webhook():
     event = None
     payload = request.data
     sig_header = request.headers['STRIPE_SIGNATURE']
