@@ -9,14 +9,35 @@ There's 3 major routes we need to worry about:
 Normally you would stick the dev and prod webhook on different APIs, but instead, since I'm doing both on the same,
 I'll just make 2 webhooks that call different helpers.
 """
-from flask import Blueprint
+import json
+import os
+import stripe
+
+from flask import Blueprint, jsonify, request
+
+stripe.api_key = os.environ.get("STRIPE_SECRET_KEY") # this is the secret key from stripe, see stripe developer
+endpoint_secret = os.environ.get("STRIPE_ENDPOINT_SECRET") # this is for the webhook, see https://dashboard.stripe.com/webhooks/create
 
 bp = Blueprint("payments", __name__, url_prefix="/payments")
 
-@bp.route("/recieve_webhook", methods=["POST"])
-def recieve_webhook():
-    return "We got the webhook!"
+@bp.route("/webhook", methods=["POST"])
+def webhook():
+    event = None
+    payload = request.data
+    sig_header = request.headers['STRIPE_SIGNATURE']
 
-@bp.route("/dev_recieve_webhook", methods=["POST"])
-def dev_recieve_webhook():
-    return "We got the dev webhook!"
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError as e:
+        # Invalid payload
+        raise e
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        raise e
+
+    # Handle the event
+    print('Unhandled event type {}'.format(event['type']))
+
+    return jsonify(success=True)
