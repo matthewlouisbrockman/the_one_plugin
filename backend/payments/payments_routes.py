@@ -54,7 +54,7 @@ def stripe_webhook():
         if subscription:
             print('updating subscription')
             # update the subscription
-            subscription.update(customer_id=customer_id)
+            subscription.update(user_id=client_reference_id)
         else:
             # create the subscription
             subscription = TOPSubscription(
