@@ -26,6 +26,7 @@ class TOPSubscription(db.Model):
         self.subscription_plan = kwargs.get('subscription_plan')
         self.createdat = kwargs.get('createdat')
         self.expires_at = kwargs.get('expires_at')
+        self.canceled_at = kwargs.get('canceled_at')
         self.cancel_at_period_end = kwargs.get('cancel_at_period_end')
 
     def __repr__(self):
