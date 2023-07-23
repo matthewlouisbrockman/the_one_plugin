@@ -61,7 +61,7 @@ def stripe_webhook():
             )
             subscription.save()
 
-    if event['type'] == 'invoice.paid':
+    if event['type'] == 'invoice.payment_succeeded':
         print("Invoice paid")
         print(event)
         # get the subscription_id, plan, expires_at, cancel_at_period_end
@@ -94,6 +94,29 @@ def stripe_webhook():
                 canceled_at=cancel_at_period_end
             )
             subscription.save()
+    if event['type'] == 'customer.subscription.updated':
+        plan = event['data']['object']['plan']['id']
+        expires_at = event['data']['object']['current_period_end']
+        cancel_at_period_end = event['data']['object']['cancel_at_period_end']
+        subscription_id = event['data']['object']['id']
+        customer_id = event['data']['object']['customer']
+
+        subscription = TOPSubscription.query.filter_by(subscription_id=subscription_id).first()
+        if subscription:
+            subscription.update(subscription_plan=plan, expires_at=expires_at, canceled_at=cancel_at_period_end)
+        else:
+            # create the subscription
+            subscription = TOPSubscription(
+                subscription_provider="stripe",
+                subscription_id=subscription_id,
+                customer_id=customer_id,
+                subscription_plan=plan,
+                expires_at=expires_at,
+                canceled_at=cancel_at_period_end
+            )
+            subscription.save()
+
+            
 
     # Handle the event
     print('Unhandled event type {}'.format(event['type']))
