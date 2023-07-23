@@ -11,6 +11,7 @@ class TOPSubscription(db.Model):
     subscription_id = db.Column(db.String(100), nullable=True, unique=True) # stripe subscription id, we'll use this as the sripe identifier
     subscription_status = db.Column(db.String(100), nullable=True) # active, cancelling, canceled, past_due, trialing, unpaid
     subscription_plan = db.Column(db.String(100), nullable=True) # some id from stripe
+    product_id = db.Column(db.String(100), nullable=True) # some id from stripe
     createdat = db.Column(db.Integer, nullable=True) # we're gonna store all this in epoch time
     expires_at = db.Column(db.Integer, nullable=True) # same as above
     canceled_at = db.Column(db.Integer, nullable=True) # same as above
@@ -28,6 +29,7 @@ class TOPSubscription(db.Model):
         self.expires_at = kwargs.get('expires_at')
         self.canceled_at = kwargs.get('canceled_at')
         self.cancel_at_period_end = kwargs.get('cancel_at_period_end')
+        self.product_id = kwargs.get('product_id')
 
     def __repr__(self):
         return f"<Subscription {self.subscription_id}>"
@@ -44,7 +46,8 @@ class TOPSubscription(db.Model):
             "createdat": self.createdat,
             "expires_at": self.expires_at,
             "canceled_at": self.canceled_at,
-            "cancel_at_period_end": self.cancel_at_period_end
+            "cancel_at_period_end": self.cancel_at_period_end,
+            "product_id": self.product_id
         }
     
     def save(self):

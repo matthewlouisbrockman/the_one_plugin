@@ -69,6 +69,7 @@ def stripe_webhook():
         plan = event['data']['object']['lines']['data'][0]['plan']['id']
         expires_at = event['data']['object']['lines']['data'][0]['period']['end']
         customer_id = event['data']['object']['customer']
+        product_id = event['data']['object']['lines']['data'][0]['plan']['product']
 
         print(f"""Updating the following
         subscription_id: {subscription_id}
@@ -80,7 +81,7 @@ def stripe_webhook():
         # check if the subscription exists
         subscription = TOPSubscription.query.filter_by(subscription_id=subscription_id).first()
         if subscription:
-            subscription.update(subscription_plan=plan, expires_at=expires_at)
+            subscription.update(subscription_plan=plan, expires_at=expires_at, customer_id=customer_id, product_id=product_id)
         else:
             # create the subscription
             subscription = TOPSubscription(
@@ -89,7 +90,8 @@ def stripe_webhook():
                 customer_id=customer_id,
                 subscription_plan=plan,
                 expires_at=expires_at,
-                cancel_at_period_end=cancel_at_period_end
+                cancel_at_period_end=cancel_at_period_end,
+                product_id=product_id
             )
             subscription.save()
     if event['type'] == 'customer.subscription.updated':
@@ -98,10 +100,11 @@ def stripe_webhook():
         cancel_at_period_end = event['data']['object']['cancel_at_period_end']
         subscription_id = event['data']['object']['id']
         customer_id = event['data']['object']['customer']
+        product_id = event['data']['object']['plan']['product']
 
         subscription = TOPSubscription.query.filter_by(subscription_id=subscription_id).first()
         if subscription:
-            subscription.update(subscription_plan=plan, expires_at=expires_at, cancel_at_period_end=cancel_at_period_end)
+            subscription.update(subscription_plan=plan, expires_at=expires_at, cancel_at_period_end=cancel_at_period_end, customer_id=customer_id, product_id=product_id)
         else:
             # create the subscription
             subscription = TOPSubscription(
@@ -110,7 +113,8 @@ def stripe_webhook():
                 customer_id=customer_id,
                 subscription_plan=plan,
                 expires_at=expires_at,
-                cancel_at_period_end=cancel_at_period_end
+                cancel_at_period_end=cancel_at_period_end,
+                product_id=product_id
             )
             subscription.save()
 
