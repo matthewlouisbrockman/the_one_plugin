@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, g, request
-from wrappers.auth_required import auth_required
+from wrappers.auth_required import auth_required, rate_limited
 from models.jobs import TOPJob
 from utils.json_helper import jsonify_payload
 
@@ -17,11 +17,14 @@ def get_jobs():
     return jsonify_payload({'jobs': [job.serialize() for job in jobs]})
 
 @bp.route("/jobs", methods=["POST"])
+
 @auth_required
+@rate_limited
 def create_job():
     payload = request.get_json()
 
     print('payload: ', payload)
+    print('subscription data: ', g.subscription)
 
     job_name = payload.get('job_name')
     job_description = payload.get('job_description')

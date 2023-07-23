@@ -6,6 +6,7 @@ from flask import request, g, jsonify
 from functools import wraps
 from urllib.request import urlopen
 from config import IS_LOCALHOST
+from models.subscriptions import TOPSubscription
 
 AUTH0_DOMAIN = os.getenv("AUTH0_DOMAIN", "theoneplugin.us.auth0.com")
 ALGORITHMS = os.getenv("ALGORITHMS", ["RS256"])
@@ -133,3 +134,26 @@ def auth_required(f):
         return response
     
     return wrapper
+
+# wrapper to add the subscription status to g
+def rate_limited(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        # Call the actual function
+        try:
+            # check if user has sub
+            subscription = TOPSubscription.find_by_user_id(g.user_id)
+            if subscription:
+                g.subscription = subscription
+            else:
+                g.subscription = None
+            response = f(*args, **kwargs)
+
+        except Exception as e:
+            response = jsonify({"message": str(e)}), 500
+
+        return response
+    
+    return wrapper
+
+
