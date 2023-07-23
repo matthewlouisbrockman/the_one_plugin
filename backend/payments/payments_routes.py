@@ -60,6 +60,7 @@ def stripe_webhook():
                 subscription_id=subscription_id,
             )
             subscription.save()
+        return jsonify(success=True)
 
     if event['type'] == 'invoice.payment_succeeded':
         print("Invoice paid")
@@ -94,6 +95,7 @@ def stripe_webhook():
                 product_id=product_id
             )
             subscription.save()
+        return jsonify(success=True)
     if event['type'] == 'customer.subscription.updated':
         plan = event['data']['object']['plan']['id']
         expires_at = event['data']['object']['current_period_end']
@@ -117,6 +119,7 @@ def stripe_webhook():
                 product_id=product_id
             )
             subscription.save()
+        return jsonify(success=True)
 
 
 
