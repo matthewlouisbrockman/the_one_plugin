@@ -91,7 +91,7 @@ def stripe_webhook():
                 customer_id=customer_id,
                 subscription_plan=plan,
                 expires_at=expires_at,
-                canceled_at=cancel_at_period_end
+                cancel_at_period_end=cancel_at_period_end
             )
             subscription.save()
     if event['type'] == 'customer.subscription.updated':
@@ -112,11 +112,11 @@ def stripe_webhook():
                 customer_id=customer_id,
                 subscription_plan=plan,
                 expires_at=expires_at,
-                canceled_at=cancel_at_period_end
+                cancel_at_period_end=cancel_at_period_end
             )
             subscription.save()
 
-            
+
 
     # Handle the event
     print('Unhandled event type {}'.format(event['type']))

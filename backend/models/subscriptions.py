@@ -14,6 +14,7 @@ class TOPSubscription(db.Model):
     createdat = db.Column(db.Integer, nullable=True) # we're gonna store all this in epoch time
     expires_at = db.Column(db.Integer, nullable=True) # same as above
     canceled_at = db.Column(db.Integer, nullable=True) # same as above
+    cancel_at_period_end = db.Column(db.Boolean, nullable=True) # whether or not the subscription will cancel at the end of the period
 
     def __init__(self, **kwargs):
         # So we need to create this object from the webhook data and it might be out of order; for stripe, subscription_id will be a good indicator of whether or not we need to create a new subscription or update an existing one
@@ -25,7 +26,7 @@ class TOPSubscription(db.Model):
         self.subscription_plan = kwargs.get('subscription_plan')
         self.createdat = kwargs.get('createdat')
         self.expires_at = kwargs.get('expires_at')
-        self.canceled_at = kwargs.get('canceled_at')
+        self.cancel_at_period_end = kwargs.get('cancel_at_period_end')
 
     def __repr__(self):
         return f"<Subscription {self.subscription_id}>"
@@ -41,7 +42,8 @@ class TOPSubscription(db.Model):
             "subscription_plan": self.subscription_plan,
             "createdat": self.createdat,
             "expires_at": self.expires_at,
-            "canceled_at": self.canceled_at
+            "canceled_at": self.canceled_at,
+            "cancel_at_period_end": self.cancel_at_period_end
         }
     
     def save(self):
