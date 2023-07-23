@@ -56,6 +56,7 @@ class TOPSubscription(db.Model):
         db.session.add(self)
 
         db.session.commit()
+        print('updated subscription, here is the new subscription: ', self.serialize())
     
     @classmethod
     def find_by_user_id(cls, user_id):

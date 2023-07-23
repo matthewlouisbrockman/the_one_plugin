@@ -71,6 +71,14 @@ def stripe_webhook():
         cancel_at_period_end = event['data']['object']['lines']['data'][0]['plan']['cancel_at_period_end']
         customer_id = event['data']['object']['customer']
 
+        print(f"""Updating the following
+        subscription_id: {subscription_id}
+        plan: {plan}
+        expires_at: {expires_at}
+        cancel_at_period_end: {cancel_at_period_end}
+        customer_id: {customer_id}
+        """)
+
         # check if the subscription exists
         subscription = TOPSubscription.query.filter_by(subscription_id=subscription_id).first()
         if subscription:
