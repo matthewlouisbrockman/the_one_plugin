@@ -56,6 +56,7 @@ class TOPSubscription(db.Model):
 
     def update(self, **kwargs):
         # can do partial updates here
+        print('updating with kwargs: ', kwargs)
         for key, value in kwargs.items():
             setattr(self, key, value)
         

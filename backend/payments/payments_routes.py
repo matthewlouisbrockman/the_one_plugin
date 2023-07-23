@@ -40,15 +40,19 @@ def stripe_webhook():
 
     if event['type'] == 'checkout.session.completed':
         print("Checkout session completed")
-        print(event)
         # get the customerid, subscriptionid, and client reference id
         customer_id = event['data']['object']['customer']
         subscription_id = event['data']['object']['subscription']
         client_reference_id = event['data']['object']['client_reference_id']
 
+        print('customer_id: ', customer_id)
+        print('subscription_id: ', subscription_id)
+        print('client_reference_id: ', client_reference_id)
+
         # check if the subscription exists
         subscription = TOPSubscription.query.filter_by(subscription_id=subscription_id).first()
         if subscription:
+            print('updating subscription')
             # update the subscription
             subscription.update(customer_id=customer_id)
         else:
