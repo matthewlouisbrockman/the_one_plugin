@@ -103,7 +103,7 @@ def stripe_webhook():
 
         subscription = TOPSubscription.query.filter_by(subscription_id=subscription_id).first()
         if subscription:
-            subscription.update(subscription_plan=plan, expires_at=expires_at, canceled_at=cancel_at_period_end)
+            subscription.update(subscription_plan=plan, expires_at=expires_at, cancel_at_period_end=cancel_at_period_end)
         else:
             # create the subscription
             subscription = TOPSubscription(
